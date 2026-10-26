@@ -5,9 +5,7 @@ main = "src/index.ts"
 compatibility_date = "2026-10-01"
 workers_dev = true
 
-# Custom domain. Attached separately on first deploy (it needs DNS permission
-# on pilum.dev); uncomment once t.pilum.dev is attached.
-# routes = [{ pattern = "t.pilum.dev", custom_domain = true }]
+routes = [{ pattern = "t.pilum.dev", custom_domain = true }]
 
 [vars]
 POSTHOG_HOST = "https://us.i.posthog.com"
@@ -22,10 +20,12 @@ namespace_id = "7301"
 simple = { limit = 60, period = 60 }
 
 # Tallies of accepted, forwarded and dropped events, for watching the Worker
-# without PostHog. No identifiers.
-[[analytics_engine_datasets]]
-binding = "METRICS"
-dataset = "pilum_metrics"
+# without PostHog. No identifiers. Analytics Engine has to be enabled on the
+# account first (dashboard > Workers > Analytics Engine); until then the code
+# skips the tallies.
+# [[analytics_engine_datasets]]
+# binding = "METRICS"
+# dataset = "pilum_metrics"
 
 # Request logs off: the Worker should not keep client IPs anywhere.
 [observability]
